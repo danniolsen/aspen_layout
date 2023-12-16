@@ -1,0 +1,43 @@
+{
+  "categories": [
+    {
+      "id": 1,
+      "name": "Hotels"
+    },
+    {
+      "id": 2,
+      "name": "Food"
+    },
+    {
+      "id": 3,
+      "name": "Adventure"
+    },
+    {
+      "id": 4,
+      "name": "Nightlife"
+    },
+    {
+      "id": 5,
+      "name": "Sports"
+    },
+    {
+      "id": 6,
+      "name": "Culture"
+    }
+  ],
+  "popular": [
+    {
+      "id": 1,
+      "image": "some image",
+      "tag": "Alley Palace",
+      "rating": "4.3"
+    },
+    {
+      "id": 2,
+      "image": "some image",
+      "tag": "Alley Palace",
+      "rating": "4.3"
+    }
+  ],
+  "recommended": []
+}

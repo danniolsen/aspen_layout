@@ -43,7 +43,6 @@ const AttractionsList = () => {
       renderItem={({ item }) =>
         <ListItem item={item} component={item.component} />}
       keyExtractor={item => item.id.toString()}
-      // stickyHeaderHiddenOnScroll={true}
       onRefresh={fetchData}
       refreshing={fetching}
     />

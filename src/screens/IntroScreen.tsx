@@ -4,7 +4,8 @@ import {
   ImageBackground,
   Image,
   Dimensions,
-  Pressable
+  Pressable,
+  StatusBar
 } from "react-native";
 import * as Haptics from "expo-haptics";
 
@@ -28,6 +29,7 @@ const IntroScreen = ({ navigation }: any) => {
       style={styles.container}
       resizeMode="cover"
     >
+      <StatusBar barStyle={"light-content"} />
       <Animated.View entering={FadeIn.duration(1200)} style={styles.headline}>
         <Image
           source={require("../../assets/aspen.png")}

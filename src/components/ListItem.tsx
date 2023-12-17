@@ -35,15 +35,12 @@ type ItemType = {
 const { width } = Dimensions.get("window");
 
 const ListItems = ({ item, component }: ListItemProps) => {
-
-
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList, 'Details'>>();
 
   const goToDetails = useCallback((item: ListItemType) => {
     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy);
     navigation.navigate("Details", { item });
   }, [item]);
-
 
   return (
     <View>

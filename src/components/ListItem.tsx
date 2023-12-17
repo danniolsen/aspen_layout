@@ -4,7 +4,8 @@ import {
   View,
   ImageBackground,
   Dimensions,
-  Pressable
+  Pressable,
+  Image
 } from "react-native";
 import { useCallback } from "react";
 import Font from "../components/Font";
@@ -12,26 +13,30 @@ import Tag from "../components/Tag";
 import * as Haptics from "expo-haptics";
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import type { AspenScreenType, RootStackParamList, ListItemType } from "../../types";
+import type { RootStackParamList, ListItemType } from "../../types";
 
+type componentType = 'ImageCard' | 'CompactCard' | undefined
 
 type ListItemProps = {
   item: {
     id: number;
     title: string;
     items: ListItemType[];
-    component?: string
-  };
+  },
+  component?: componentType
 };
 
 type ItemType = {
   item: ListItemType;
-  navigateToDetails: (item: ListItemType) => void;
+  navigateToDetails?: (item: ListItemType) => void;
+  component?: componentType
 };
 
 const { width } = Dimensions.get("window");
 
-const ListItems = ({ item }: ListItemProps) => {
+const ListItems = ({ item, component }: ListItemProps) => {
+
+
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList, 'Details'>>();
 
   const goToDetails = useCallback((item: ListItemType) => {
@@ -51,42 +56,61 @@ const ListItems = ({ item }: ListItemProps) => {
         snapToInterval={width / 2}
         snapToAlignment="center"
         showsHorizontalScrollIndicator={false}
-        renderItem={({ item }) => {
-          return (
-            <Item item={item} navigateToDetails={item => goToDetails(item)} />
-          );
-        }}
+        renderItem={({ item }) => <Item item={item} navigateToDetails={item => goToDetails(item)} component={component} />}
         keyExtractor={item => item.id.toString()}
       />
     </View>
   );
 };
 
-const Item = ({ item, navigateToDetails }: ItemType) => {
+const Item = ({ item, navigateToDetails, component }: ItemType) => {
+  const isCompact = component === 'CompactCard'
+
   const onPress = () => {
-    navigateToDetails(item);
+    if (navigateToDetails) navigateToDetails(item);
   };
   
   return (
-    <Pressable onPress={onPress} style={styles.itemContainer}>
-      <ImageBackground
-        source={item.image}
-        resizeMode="cover"
-        imageStyle={{ borderRadius: 25 }}
-        style={styles.backgroundImage}
-      >
-        <View style={styles.content}>
-          <View style={styles.tagItem}>
-            <Tag tag={item.tag} />
-          </View>
-          <View style={styles.tagItem}>
-            <Tag tag={item.rating} hasStar={true} />
-          </View>
-        </View>
-      </ImageBackground>
+    <Pressable onPress={onPress} >
+      {isCompact ? <CompactCard item={item}/> : <ImageCard item={item} />}
     </Pressable>
   );
 };
+
+const ImageCard = ({ item }: ItemType) => {
+  return (
+    <View style={styles.itemContainer}>
+    <ImageBackground
+      source={item.image}
+      resizeMode="cover"
+      imageStyle={{ borderRadius: 25 }}
+      style={styles.backgroundImage}
+    >
+      <View style={styles.content}>
+        <View style={styles.tagItem}>
+          <Tag tag={item.tag} />
+        </View>
+        <View style={styles.tagItem}>
+          <Tag tag={item.rating} hasStar={true} />
+        </View>
+      </View>
+    </ImageBackground>
+    </View>
+  )
+}
+
+const CompactCard = ({ item }: ItemType) => {
+  return (
+    <View style={styles.compactContainer}>
+      <Image source={item.image} resizeMode="cover" style={styles.compactImage} />
+      <View style={styles.compactContent}>
+        <Font size={14} variant="bold">{item.tag}</Font>
+        <Tag tag={item.rating} hasStar={true} />
+      </View>
+    </View>
+  )
+}
+
 
 const styles = StyleSheet.create({
   title: {
@@ -102,6 +126,26 @@ const styles = StyleSheet.create({
     width: width / 1.7,
     height: width / 1.2,
     borderRadius: 25
+  },
+  compactContainer: {
+    width: width / 1.2,
+    marginHorizontal: 10,
+    borderRadius: 25,
+    backgroundColor: '#F8F8F8'
+  },
+  compactImage: {
+    width: width / 1.2,
+    height: width / 3,
+    borderRadius: 25,
+   
+  },
+  compactContent: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingVertical: 10,
+    paddingHorizontal: 15
   },
   content: {
     flex: 1,

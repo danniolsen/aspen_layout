@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { FlatList, StyleSheet, Pressable } from "react-native";
+import { useEffect, useRef, useState } from "react";
+import { FlatList, StyleSheet, Pressable, Dimensions } from "react-native";
 import Font from "../components/Font";
 import {categories} from "../../data/attractionsData";
 import * as Haptics from "expo-haptics";
@@ -13,19 +13,36 @@ type ListItemProps = {
   selectCategory: (id: number) => void 
 }
 
+type categoryListProps = {
+  onCategorySelected: (id: number) => void 
+}
 
-
-const CategoriesList = () => {
+const { width } = Dimensions.get('window');
+const CategoriesList = ({onCategorySelected}: categoryListProps) => {
   const [selected, setSelected] = useState<number>(1);
+  const flatListRef = useRef<FlatList>(null);
 
   const assignNewSelected = (id: number) => {
     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
     setSelected(id);
+    return onCategorySelected(id);
   }
+
+  useEffect(() => {
+    if (flatListRef.current) {
+      const index = selected - 1;
+      flatListRef.current.scrollToIndex({
+        animated: true,
+        index,
+        viewOffset: width / 4
+      });
+    }
+  }, [selected]);
 
   return (
     <FlatList
       data={categories}
+      ref={flatListRef}
       horizontal={true}
       showsHorizontalScrollIndicator={false}
       renderItem={({ item }) => {

@@ -25,12 +25,7 @@ const MainNavigation = () => {
         <Stack.Screen
           name="Details"
           component={DetailsScreen}
-          options={{
-            animation: "fade",
-            headerShown: false,
-            presentation: "modal",
-            fullScreenGestureEnabled: false
-          }}
+          options={{headerShown: false}}
         />
       </Stack.Navigator>
     </NavigationContainer>

@@ -94,10 +94,10 @@ const ImageCard = ({ item }: ItemType) => {
     >
       <View style={styles.content}>
         <View style={styles.tagItem}>
-          <Tag tag={item.tag} />
+          <Tag tag={item.tag} icon="house"/>
         </View>
         <View style={styles.tagItem}>
-          <Tag tag={item.rating} hasStar={true} />
+          <Tag tag={item.rating} icon="star-border" />
         </View>
       </View>
     </ImageBackground>
@@ -111,7 +111,7 @@ const CompactCard = ({ item }: ItemType) => {
       <Image source={item.image} resizeMode="cover" style={styles.compactImage} />
       <View style={styles.compactContent}>
         <Font size={14} variant="bold">{item.tag}</Font>
-        <Tag tag={item.rating} hasStar={true} />
+        <Tag tag={item.rating} icon="star-border" />
       </View>
     </View>
   )

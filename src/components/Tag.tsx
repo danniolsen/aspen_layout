@@ -1,18 +1,23 @@
 import { View, StyleSheet, Image } from "react-native";
 import Font from "./Font";
+import { MaterialIcons } from "@expo/vector-icons";
 
+type IconProps = {
+  materialIconName: keyof typeof MaterialIcons.glyphMap;
+};
 type TagProps = {
   tag: string;
-  hasStar?: boolean | false;
+  icon?: IconProps;
 };
-
-const Tag = ({ tag, hasStar }: TagProps) => {
+const Tag = ({ tag, icon }: TagProps) => {
   return (
     <View style={styles.container}>
-      {hasStar
-        ? <Image
+      {icon
+        ? <MaterialIcons
+            name={icon}
+            size={12}
+            color="#FFF"
             style={styles.icon}
-            source={require("../../assets/star.png")}
           />
         : null}
       <Font size={12} color="secondary">

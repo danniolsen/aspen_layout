@@ -1,8 +1,42 @@
-import { View, StyleSheet, SafeAreaView } from "react-native";
+import { useState, useRef, useCallback } from "react";
+import {
+  View,
+  StyleSheet,
+  SafeAreaView,
+  Pressable,
+  Animated
+} from "react-native";
+import * as Haptics from "expo-haptics";
 import { MaterialIcons } from "@expo/vector-icons";
 import Font from "../components/Font";
 
 const Header = () => {
+  const [menuOpen, setmenuOpen] = useState<boolean>(false);
+  const shakeAnimation = useRef(new Animated.Value(0)).current;
+
+  const toggleMenu = () => {
+    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
+    setmenuOpen(!menuOpen);
+    startShake();
+  };
+
+  const sequence = useCallback((toValue: number) => {
+    return Animated.timing(shakeAnimation, {
+      toValue: toValue,
+      duration: 10,
+      useNativeDriver: true
+    });
+  }, []);
+
+  const startShake = () => {
+    Animated.sequence([
+      sequence(2),
+      sequence(-2),
+      sequence(2),
+      sequence(0)
+    ]).start();
+  };
+
   return (
     <SafeAreaView style={styles.outerContainer}>
       <View style={styles.container}>
@@ -18,8 +52,19 @@ const Header = () => {
           </View>
         </View>
 
-        <View style={styles.title}>
+        <View style={styles.titleContainer}>
           <Font size={32}>Aspen</Font>
+          <Pressable onPress={toggleMenu}>
+            <Animated.View
+              style={{ transform: [{ translateX: shakeAnimation }] }}
+            >
+              <MaterialIcons
+                name={menuOpen ? "close" : "menu"}
+                size={32}
+                color="#606060"
+              />
+            </Animated.View>
+          </Pressable>
         </View>
       </View>
     </SafeAreaView>
@@ -42,7 +87,10 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center"
   },
-  title: {
+  titleContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
     marginVertical: 5
   }
 });

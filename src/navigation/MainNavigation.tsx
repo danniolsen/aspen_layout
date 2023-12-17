@@ -1,8 +1,7 @@
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { IntroScreen, AspenScreen, DetailsScreen } from "../screens";
-import type { RootStackParamList } from "../../types";
-
+import { RootStackParamList } from "../../types";
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -25,7 +24,7 @@ const MainNavigation = () => {
         <Stack.Screen
           name="Details"
           component={DetailsScreen}
-          options={{headerShown: false}}
+          options={{ headerShown: false }}
         />
       </Stack.Navigator>
     </NavigationContainer>

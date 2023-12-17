@@ -1,3 +1,4 @@
+import "react-native-gesture-handler";
 import { StatusBar } from "expo-status-bar";
 import { useCallback } from "react";
 import { StyleSheet, View } from "react-native";
@@ -8,7 +9,6 @@ import * as SplashScreen from "expo-splash-screen";
 SplashScreen.preventAutoHideAsync();
 
 const App = () => {
-  const backgroundImage = require("./assets/backgroundImage.jpg");
   const [fontsLoaded] = useFonts({
     "Montserrat-Regular": require("./assets/Montserrat/Montserrat-Regular.ttf"),
     "Montserrat-Bold": require("./assets/Montserrat/Montserrat-Bold.ttf"),

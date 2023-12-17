@@ -2,7 +2,7 @@ import { StyleSheet, View, StatusBar } from "react-native";
 import Header from "../components/Header";
 import AttractionsList from "../components/AttractionsList";
 
-const AspenScreen = () => {
+const AspenScreen = ({ navigation }: any) => {
   return (
     <View style={styles.container}>
       <StatusBar barStyle={"dark-content"} />

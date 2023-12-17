@@ -23,7 +23,7 @@ const CategoriesList = ({onCategorySelected}: categoryListProps) => {
   const flatListRef = useRef<FlatList>(null);
 
   const assignNewSelected = (id: number) => {
-    s.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
     setSelected(id);
     return onCategorySelected(id);
   }

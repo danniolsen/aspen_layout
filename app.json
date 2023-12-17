@@ -32,6 +32,12 @@
         "projectId": "1ac5691b-888e-42b9-8544-004aadf09b4f"
       }
     },
-    "owner": "danni_olsen"
+    "owner": "danni_olsen",
+    "runtimeVersion": {
+      "policy": "appVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/1ac5691b-888e-42b9-8544-004aadf09b4f"
+    }
   }
 }

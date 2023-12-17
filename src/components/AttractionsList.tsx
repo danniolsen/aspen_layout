@@ -39,7 +39,6 @@ const AttractionsList = () => {
       }
       stickyHeaderIndices={[0]}
       showsVerticalScrollIndicator={false}
-      snapToInterval={300}
       snapToAlignment="center"
       renderItem={({ item }) =>
         <ListItem item={item} component={item.component} />}

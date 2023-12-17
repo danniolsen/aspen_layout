@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "aspen_travel",
-    "slug": "aspen_travel",
+    "slug": "aspen-app",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -15,7 +15,8 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.danniolsen.aspen"
     },
     "android": {
       "adaptiveIcon": {
@@ -25,6 +26,12 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "extra": {
+      "eas": {
+        "projectId": "1ac5691b-888e-42b9-8544-004aadf09b4f"
+      }
+    },
+    "owner": "danni_olsen"
   }
 }

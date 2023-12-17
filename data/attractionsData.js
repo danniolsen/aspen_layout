@@ -29,7 +29,7 @@ export const attractions = [
   {
     id: 1,
     title: "Popular",
-    component: "imageCard",
+    component: "ImageCard",
     items: [
       {
         id: 1,
@@ -60,7 +60,7 @@ export const attractions = [
   {
     id: 2,
     title: "Hotels",
-    component: "compactCard",
+    component: "CompactCard",
     items: [
       {
         id: 1,
@@ -79,7 +79,7 @@ export const attractions = [
   {
     id: 3,
     title: "Hotels",
-    component: "compactCard",
+    component: "CompactCard",
     items: [
       {
         id: 1,
@@ -98,7 +98,7 @@ export const attractions = [
   {
     id: 4,
     title: "Hotels",
-    component: "compactCard",
+    component: "ImageCard",
     items: [
       {
         id: 1,

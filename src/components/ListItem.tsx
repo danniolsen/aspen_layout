@@ -4,14 +4,15 @@ import {
   View,
   ImageBackground,
   Dimensions,
-  ImageSourcePropType,
   Pressable
 } from "react-native";
+import { useCallback } from "react";
 import Font from "../components/Font";
 import Tag from "../components/Tag";
 import * as Haptics from "expo-haptics";
 import { useNavigation } from "@react-navigation/native";
-import type { ListItemType, RootStackParamList } from "../../types";
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import type { AspenScreenType, RootStackParamList, ListItemType } from "../../types";
 
 
 type ListItemProps = {
@@ -19,6 +20,7 @@ type ListItemProps = {
     id: number;
     title: string;
     items: ListItemType[];
+    component?: string
   };
 };
 
@@ -30,19 +32,18 @@ type ItemType = {
 const { width } = Dimensions.get("window");
 
 const ListItems = ({ item }: ListItemProps) => {
-  const navigation = useNavigation<RootStackParamList>();
+  const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList, 'Details'>>();
 
-  const goToDetails = (item: ListItemType) => {
+  const goToDetails = useCallback((item: ListItemType) => {
     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy);
     navigation.navigate("Details", { item });
-  };
+  }, [item]);
+
 
   return (
     <View>
       <View style={styles.title}>
-        <Font size={16}>
-          {item.title}
-        </Font>
+        <Font size={16}>{item.title}</Font>
       </View>
       <FlatList
         data={item.items}

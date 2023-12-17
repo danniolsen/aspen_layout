@@ -1,12 +1,20 @@
 import { ImageSourcePropType } from "react-native";
+import { NavigatorScreenParams } from "@react-navigation/native";
 
 /**  ITEMS  **/
+export type AttractionListItem = {
+  id: number;
+  title: string;
+  items: ListItemType[];
+};
+
 export type ListItemType = {
   id: number;
   title?: string;
   image: ImageSourcePropType;
   rating: string;
   tag: string;
+  component?: "ImageCard" | "CompactCard";
 };
 
 /**  NAVIGATION  **/

@@ -35,7 +35,7 @@ type ItemType = {
 const { width } = Dimensions.get("window");
 
 const ListItems = ({ item, component }: ListItemProps) => {
-  const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList, 'Details'>>();
+const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList, 'Details'>>();
 
   const goToDetails = useCallback((item: ListItemType) => {
     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy);
@@ -50,8 +50,9 @@ const ListItems = ({ item, component }: ListItemProps) => {
       <FlatList
         data={item.items}
         horizontal={true}
-        snapToInterval={width / 2}
+        ListEmptyComponent={<EmptyItem />}
         snapToAlignment="center"
+       
         showsHorizontalScrollIndicator={false}
         renderItem={({ item }) => <Item item={item} navigateToDetails={item => goToDetails(item)} component={component} />}
         keyExtractor={item => item.id.toString()}
@@ -59,6 +60,14 @@ const ListItems = ({ item, component }: ListItemProps) => {
     </View>
   );
 };
+
+const EmptyItem = () => {
+  return (
+    <View style={styles.emptyItemContainer}>
+     <Font size={24} variant="light" color="tertiary">No items found</Font>
+    </View>
+  );
+}
 
 const Item = ({ item, navigateToDetails, component }: ItemType) => {
   const isCompact = component === 'CompactCard'
@@ -112,6 +121,15 @@ const CompactCard = ({ item }: ItemType) => {
 const styles = StyleSheet.create({
   title: {
     margin: 20
+  },
+  emptyItemContainer: {
+    width: width - 20,
+    alignItems: 'center',
+    height: width / 1.2,
+    justifyContent: 'center',
+    margin: 10,
+    borderRadius: 25,
+    backgroundColor: '#F8F8F8'
   },
   itemContainer: {
     width: width / 1.7,

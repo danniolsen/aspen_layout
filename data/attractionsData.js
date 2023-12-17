@@ -13,15 +13,7 @@ export const categories = [
   },
   {
     id: 4,
-    name: "Nightlife"
-  },
-  {
-    id: 5,
     name: "Sports"
-  },
-  {
-    id: 6,
-    name: "Culture"
   }
 ];
 
@@ -97,32 +89,7 @@ export const attractions = [
   },
   {
     id: 4,
-    title: "Nightlife",
-    component: "ImageCard",
-    items: [
-      {
-        id: 1,
-        image: require("../assets/iglo.jpg"),
-        tag: "Meadow's Platos",
-        rating: "5"
-      },
-      {
-        id: 2,
-        image: require("../assets/regis.jpg"),
-        tag: "St. Regis Hotel",
-        rating: "4.3"
-      }
-    ]
-  },
-  {
-    id: 5,
     title: "Sports",
-    component: "ImageCard",
-    items: []
-  },
-  {
-    id: 6,
-    title: "Culture",
     component: "ImageCard",
     items: []
   }

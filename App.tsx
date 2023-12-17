@@ -32,7 +32,7 @@ const App = () => {
 
   return (
     <View style={styles.container} onLayout={onLayoutRootView}>
-      <StatusBar hidden />
+      <StatusBar />
       <MainNavigation />
     </View>
   );

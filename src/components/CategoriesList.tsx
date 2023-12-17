@@ -1,7 +1,7 @@
 import { useState } from "react";
-import { View, FlatList, StyleSheet, Pressable } from "react-native";
+import { FlatList, StyleSheet, Pressable } from "react-native";
 import Font from "../components/Font";
-import OptionsData from "../../data/attractionsData.json";
+import {categories} from "../../data/attractionsData";
 
 
 type ListItemProps = {
@@ -24,10 +24,8 @@ const CategoriesList = () => {
 
   return (
     <FlatList
-      data={OptionsData.categories}
+      data={categories}
       horizontal={true}
-      snapToAlignment="start"
-      snapToStart={true}
       showsHorizontalScrollIndicator={false}
       renderItem={({ item }) => {
         return <ListItem item={item} selected={selected} selectCategory={assignNewSelected} />

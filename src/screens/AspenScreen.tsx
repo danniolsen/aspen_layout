@@ -1,13 +1,13 @@
-import { StyleSheet, SafeAreaView, ScrollView } from "react-native";
+import { StyleSheet, View } from "react-native";
 import Header from "../components/Header";
 import AttractionsList from "../components/AttractionsList";
 
 const AspenScreen = ({ navigation }: any) => {
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={styles.container}>
       <Header />
       <AttractionsList />
-    </SafeAreaView>
+    </View>
   );
 };
 

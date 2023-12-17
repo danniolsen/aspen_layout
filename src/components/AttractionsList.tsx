@@ -1,32 +1,23 @@
-import { View, FlatList, StyleSheet } from "react-native";
-import Font from "../components/Font";
-import OptionsData from "../../data/attractionsData.json";
+import { FlatList } from "react-native";
+
+import { attractions } from "../../data/attractionsData";
 import CategoriesList from "./CategoriesList";
+import ListItem from "./ListItem";
 
 const AttractionsList = () => {
   return (
     <FlatList
-      data={OptionsData.popular}
+      data={attractions}
       ListHeaderComponent={CategoriesList}
       stickyHeaderIndices={[0]}
-      renderItem={ListItems}
+      showsVerticalScrollIndicator={false}
+      snapToInterval={300}
+      snapToAlignment="center"
+      renderItem={({ item }) => <ListItem item={item} />}
       keyExtractor={item => item.id.toString()}
       stickyHeaderHiddenOnScroll={true}
-      style={styles.container}
     />
   );
 };
-
-const ListItems = () => {
-  return (
-    <View>
-      <Font size={32}>ListItems</Font>
-    </View>
-  );
-};
-
-const styles = StyleSheet.create({
-  container: {}
-});
 
 export default AttractionsList;

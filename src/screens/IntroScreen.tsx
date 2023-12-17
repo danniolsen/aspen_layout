@@ -6,12 +6,15 @@ import {
   Dimensions,
   Pressable
 } from "react-native";
-import Animated, { FadeIn, FadeOut } from "react-native-reanimated";
+import * as Haptics from "expo-haptics";
+
+import Animated, { FadeIn } from "react-native-reanimated";
 import Font from "../components/Font";
 const { width } = Dimensions.get("window");
 
 const IntroScreen = ({ navigation }: any) => {
   const goToScreen = () => {
+    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
     navigation.navigate("Aspen");
     navigation.reset({
       index: 0,

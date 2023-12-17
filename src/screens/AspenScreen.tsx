@@ -2,7 +2,7 @@ import { StyleSheet, View } from "react-native";
 import Header from "../components/Header";
 import AttractionsList from "../components/AttractionsList";
 
-const AspenScreen = ({ navigation }: any) => {
+const AspenScreen = () => {
   return (
     <View style={styles.container}>
       <Header />

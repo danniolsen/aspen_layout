@@ -2,7 +2,7 @@ import { useState } from "react";
 import { FlatList, StyleSheet, Pressable } from "react-native";
 import Font from "../components/Font";
 import {categories} from "../../data/attractionsData";
-
+import * as Haptics from "expo-haptics";
 
 type ListItemProps = {
   item: {
@@ -18,7 +18,8 @@ type ListItemProps = {
 const CategoriesList = () => {
   const [selected, setSelected] = useState<number>(1);
 
-  const assignNewSelected = (id: number) => { 
+  const assignNewSelected = (id: number) => {
+    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
     setSelected(id);
   }
 

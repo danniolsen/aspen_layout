@@ -5,32 +5,38 @@ import {
   ImageBackground,
   Dimensions,
   ImageSourcePropType,
-  Text
+  Pressable
 } from "react-native";
 import Font from "../components/Font";
 import Tag from "../components/Tag";
+import * as Haptics from "expo-haptics";
+import { useNavigation } from "@react-navigation/native";
+import type { ListItemType, RootStackParamList } from "../../types";
 
-type ItemProps = {
-  id: number;
-  image: ImageSourcePropType;
-  rating: string;
-  tag: string;
-};
 
 type ListItemProps = {
   item: {
     id: number;
     title: string;
-    items: ItemProps[];
+    items: ListItemType[];
   };
 };
 
 type ItemType = {
-  item: ItemProps;
+  item: ListItemType;
+  navigateToDetails: (item: ListItemType) => void;
 };
+
 const { width } = Dimensions.get("window");
 
 const ListItems = ({ item }: ListItemProps) => {
+  const navigation = useNavigation<RootStackParamList>();
+
+  const goToDetails = (item: ListItemType) => {
+    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy);
+    navigation.navigate("Details", { item });
+  };
+
   return (
     <View>
       <View style={styles.title}>
@@ -44,16 +50,24 @@ const ListItems = ({ item }: ListItemProps) => {
         snapToInterval={width / 2}
         snapToAlignment="center"
         showsHorizontalScrollIndicator={false}
-        renderItem={({ item }) => <Item item={item} />}
+        renderItem={({ item }) => {
+          return (
+            <Item item={item} navigateToDetails={item => goToDetails(item)} />
+          );
+        }}
         keyExtractor={item => item.id.toString()}
       />
     </View>
   );
 };
 
-const Item = ({ item }: ItemType) => {
+const Item = ({ item, navigateToDetails }: ItemType) => {
+  const onPress = () => {
+    navigateToDetails(item);
+  };
+  
   return (
-    <View style={styles.itemContainer}>
+    <Pressable onPress={onPress} style={styles.itemContainer}>
       <ImageBackground
         source={item.image}
         resizeMode="cover"
@@ -69,7 +83,7 @@ const Item = ({ item }: ItemType) => {
           </View>
         </View>
       </ImageBackground>
-    </View>
+    </Pressable>
   );
 };
 

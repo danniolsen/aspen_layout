@@ -1,11 +1,8 @@
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { IntroScreen, AspenScreen } from "../screens";
+import { IntroScreen, AspenScreen, DetailsScreen } from "../screens";
+import type { RootStackParamList } from "../../types";
 
-type RootStackParamList = {
-  Intro: undefined;
-  Aspen: { userId: string };
-};
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -23,6 +20,17 @@ const MainNavigation = () => {
           name="Aspen"
           component={AspenScreen}
           options={{ animation: "fade", headerShown: false }}
+        />
+
+        <Stack.Screen
+          name="Details"
+          component={DetailsScreen}
+          options={{
+            animation: "simple_push",
+            headerShown: false,
+            presentation: "modal",
+            fullScreenGestureEnabled: false
+          }}
         />
       </Stack.Navigator>
     </NavigationContainer>

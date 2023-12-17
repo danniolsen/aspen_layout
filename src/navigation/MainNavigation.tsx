@@ -26,7 +26,7 @@ const MainNavigation = () => {
           name="Details"
           component={DetailsScreen}
           options={{
-            animation: "simple_push",
+            animation: "fade",
             headerShown: false,
             presentation: "modal",
             fullScreenGestureEnabled: false

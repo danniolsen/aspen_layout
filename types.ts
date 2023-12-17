@@ -18,5 +18,5 @@ export type DetailScreenType = { item: ListItemType };
 export type RootStackParamList = {
   Intro: IntroScreenType;
   Aspen: AspenScreenType;
-  Detail: DetailScreenType;
+  Details: DetailScreenType;
 };

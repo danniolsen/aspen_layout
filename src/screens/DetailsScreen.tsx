@@ -4,13 +4,20 @@ import {
   StyleSheet,
   Dimensions,
   StatusBar,
-  Animated,
   ScrollView,
-  Pressable
+  Pressable,
+  Image
 } from "react-native";
-import Font from "../components/Font";
-import { MaterialIcons } from "@expo/vector-icons";
+const { width: SCREEN_WIDTH } = Dimensions.get("window");
+const SCREEN_HEIGHT = 300;
 import { ListItemType } from "../../types";
+import Animated, {
+  interpolate,
+  useAnimatedRef,
+  useAnimatedStyle,
+  useScrollViewOffset
+} from "react-native-reanimated";
+import Font from "../components/Font";
 
 type DetailsProps = {
   navigation: any;
@@ -21,113 +28,60 @@ const { width } = Dimensions.get("window");
 
 const DetailsScreen = ({ navigation, route }: DetailsProps) => {
   const { item: { id, image, rating, tag } } = route.params;
+  const scrollRef = useAnimatedRef<Animated.ScrollView>();
+  const scrollOffset = useScrollViewOffset(scrollRef);
 
-  const pan = useRef(new Animated.ValueXY()).current;
-  const event = Animated.event(
-    [{ nativeEvent: { contentOffset: { y: pan.y } } }],
-    { useNativeDriver: false }
-  );
+  const imageAnimationStyle = useAnimatedStyle(() => {
+    return {
+      transform: [
+        {
+          translateY: interpolate(
+            scrollOffset.value,
+            [-SCREEN_HEIGHT, 0, SCREEN_HEIGHT],
+            [-SCREEN_HEIGHT / 2, 0, SCREEN_HEIGHT * 0.75]
+          )
+        },
+        {
+          scale: interpolate(
+            scrollOffset.value,
+            [-SCREEN_HEIGHT, 0, SCREEN_HEIGHT],
+            [2, 1, 1]
+          )
+        }
+      ]
+    };
+  });
+
   return (
-    <View style={{ flex: 1 }}>
+    <View style={styles.container}>
       <StatusBar hidden />
-      <Pressable onPress={() => navigation.goBack()} style={styles.backButton}>
-        <MaterialIcons
-          name="arrow-back-ios"
-          size={24}
-          color="#FFF"
-          style={styles.chevron}
-        />
-      </Pressable>
-      <ScrollView
-        scrollEventThrottle={1}
-        onScroll={event}
-        style={styles.container}
-      >
+      <Animated.ScrollView ref={scrollRef} scrollEventThrottle={16}>
         <Animated.Image
           source={image}
+          style={[styles.image, imageAnimationStyle]}
           resizeMode="cover"
-          style={{
-            width: "100%",
-            height: 250,
-            marginTop: -25,
-            padding: 0,
-            transform: [
-              {
-                translateY: pan.y.interpolate({
-                  inputRange: [-1000, 0],
-                  outputRange: [-100, 0],
-                  extrapolate: "clamp"
-                })
-              },
-              {
-                scale: pan.y.interpolate({
-                  inputRange: [-3000, 0],
-                  outputRange: [20, 1],
-                  extrapolate: "clamp"
-                })
-              }
-            ]
-          }}
         />
-        <View style={styles.content}>
-          <View style={styles.titleContainer}>
-            <View style={styles.title}>
-              <Font size={16} variant="bold">
-                {tag}
-              </Font>
-            </View>
-          </View>
+
+        <View style={styles.title}>
+          <Font variant="bold" size={24}>
+            {tag}
+          </Font>
         </View>
-      </ScrollView>
+      </Animated.ScrollView>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  container: { backgroundColor: "#FFF" },
-  innerContainer: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-    backgroundColor: "#FFF",
-    borderRadius: 25
-  },
-
-  backgroundImage: {
-    width: width,
-    height: width,
-    borderRadius: 25
-  },
-  content: {
-    marginHorizontal: 20
-  },
-  titleContainer: {
-    alignItems: "center",
-    justifyContent: "center"
+  container: { backgroundColor: "#FFF", flex: 1 },
+  image: {
+    width: SCREEN_WIDTH,
+    height: SCREEN_HEIGHT
   },
   title: {
-    marginTop: 10,
-    paddingHorizontal: 20,
-    paddingVertical: 5,
-    borderRadius: 20,
+    alignItems: "center",
+    marginTop: 20,
     backgroundColor: "#FFF"
-  },
-  backButton: {
-    position: "absolute",
-    top: 50,
-    left: 25,
-    zIndex: 100,
-    backgroundColor: "rgba(0,0,0,0.5)",
-    width: 44,
-    height: 44,
-    padding: 5,
-    borderRadius: 22
-  },
-  chevron: {
-    width: 12,
-    top: 10,
-    left: 15,
-    position: "absolute"
   }
 });
 

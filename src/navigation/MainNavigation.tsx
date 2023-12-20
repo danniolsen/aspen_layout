@@ -1,7 +1,10 @@
+import { StyleSheet, View } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { IntroScreen, AspenScreen, DetailsScreen } from "../screens";
 import { RootStackParamList } from "../../types";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
+import BackButton from "../components/BackButton";
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -24,7 +27,11 @@ const MainNavigation = () => {
         <Stack.Screen
           name="Details"
           component={DetailsScreen}
-          options={{ headerShown: false }}
+          options={{
+            headerTransparent: true,
+            headerTitle: "",
+            headerLeft: () => <BackButton canGoBack variant="dark" />
+          }}
         />
       </Stack.Navigator>
     </NavigationContainer>
@@ -32,3 +39,11 @@ const MainNavigation = () => {
 };
 
 export default MainNavigation;
+
+const styles = StyleSheet.create({
+  headerButton: {
+    backgroundColor: "rgba(0,0,0,0.5)",
+    padding: 10,
+    borderRadius: 100
+  }
+});

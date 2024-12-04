@@ -12,14 +12,14 @@ type TagProps = {
 const Tag = ({ tag, icon }: TagProps) => {
   return (
     <View style={styles.container}>
-      {icon
-        ? <MaterialIcons
-            name={icon}
-            size={12}
-            color="#FFF"
-            style={styles.icon}
-          />
-        : null}
+      {icon ? (
+        <MaterialIcons
+          name={icon.materialIconName}
+          size={12}
+          color="#FFF"
+          style={styles.icon}
+        />
+      ) : null}
       <Font size={12} color="secondary">
         {tag}
       </Font>
@@ -36,8 +36,8 @@ const styles = StyleSheet.create({
     paddingVertical: 5,
     marginBottom: 5,
     borderRadius: 100,
-    backgroundColor: "#4D5652"
+    backgroundColor: "#4D5652",
   },
-  icon: { marginRight: 5 }
+  icon: { marginRight: 5 },
 });
 export default Tag;

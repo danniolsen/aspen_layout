@@ -1,5 +1,4 @@
 import { ImageSourcePropType } from "react-native";
-import { NavigatorScreenParams } from "@react-navigation/native";
 
 /**  ITEMS  **/
 export type AttractionListItem = {
@@ -18,7 +17,6 @@ export type ListItemType = {
 };
 
 /**  NAVIGATION  **/
-
 export type IntroScreenType = undefined;
 export type AspenScreenType = undefined;
 export type DetailScreenType = { item: ListItemType };

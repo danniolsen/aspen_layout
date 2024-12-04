@@ -6,7 +6,7 @@ import ListItem from "./ListItem";
 import Font from "./Font";
 
 const AttractionsList = () => {
-  const [fetching, setFetching] = useState(false);
+  const [isFetching, setIsFetching] = useState(false);
   const flatListRef = useRef<FlatList>(null);
 
   const ScrollToSection = (id: number) => {
@@ -15,36 +15,34 @@ const AttractionsList = () => {
       flatListRef.current.scrollToIndex({
         animated: true,
         index,
-        viewOffset: 45
+        viewOffset: 45,
       });
     }
   };
 
-  const fetchData = useCallback(
-    () => {
-      setFetching(true);
-      setTimeout(() => {
-        setFetching(false);
-      }, 2000);
-    },
-    [fetching]
-  );
+  const fetchData = useCallback(() => {
+    setIsFetching(true);
+    setTimeout(() => {
+      setIsFetching(false);
+    }, 2000);
+  }, [isFetching]);
 
   return (
     <FlatList
       data={attractions}
       ref={flatListRef}
       ListHeaderComponent={
-        <CategoriesList onCategorySelected={id => ScrollToSection(id)} />
+        <CategoriesList onCategorySelected={(id) => ScrollToSection(id)} />
       }
       stickyHeaderIndices={[0]}
       showsVerticalScrollIndicator={false}
       snapToAlignment="center"
-      renderItem={({ item }) =>
-        <ListItem item={item} component={item.component} />}
-      keyExtractor={item => item.id.toString()}
+      renderItem={({ item }) => (
+        <ListItem item={item} component={item.component} />
+      )}
+      keyExtractor={(item) => item.id.toString()}
       onRefresh={fetchData}
-      refreshing={fetching}
+      refreshing={isFetching}
       ListFooterComponent={<FooterConponent />}
     />
   );

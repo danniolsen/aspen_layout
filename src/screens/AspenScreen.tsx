@@ -2,7 +2,7 @@ import { StyleSheet, View, StatusBar } from "react-native";
 import Header from "../components/Header";
 import AttractionsList from "../components/AttractionsList";
 
-const AspenScreen = ({ navigation }: any) => {
+const AspenScreen = () => {
   return (
     <View style={styles.container}>
       <StatusBar barStyle={"dark-content"} />
@@ -15,8 +15,8 @@ const AspenScreen = ({ navigation }: any) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#FFF"
-  }
+    backgroundColor: "#FFF",
+  },
 });
 
 export default AspenScreen;

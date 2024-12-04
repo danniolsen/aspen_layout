@@ -5,10 +5,9 @@ import {
   Image,
   Dimensions,
   Pressable,
-  StatusBar
+  StatusBar,
 } from "react-native";
 import * as Haptics from "expo-haptics";
-
 import Animated, { FadeIn } from "react-native-reanimated";
 import Font from "../components/Font";
 const { width } = Dimensions.get("window");
@@ -19,7 +18,7 @@ const IntroScreen = ({ navigation }: any) => {
     navigation.navigate("Aspen");
     navigation.reset({
       index: 0,
-      routes: [{ name: "Aspen" }]
+      routes: [{ name: "Aspen" }],
     });
   };
 
@@ -65,39 +64,39 @@ const IntroScreen = ({ navigation }: any) => {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1
+    flex: 1,
   },
   headline: {
     flex: 1,
     alignItems: "center",
-    justifyContent: "flex-end"
+    justifyContent: "flex-end",
   },
   content: {
     flex: 3,
-    marginHorizontal: 20
+    marginHorizontal: 20,
   },
   image: {
     display: "flex",
     justifyContent: "center",
-    alignItems: "center"
+    alignItems: "center",
   },
   intro: {
     flex: 3,
     paddingVertical: 40,
-    justifyContent: "flex-end"
+    justifyContent: "flex-end",
   },
   bottomButton: {
     flex: 1,
     justifyContent: "center",
-    alignItems: "center"
+    alignItems: "center",
   },
   button: {
     backgroundColor: "#176FF2",
     width: "100%",
     alignItems: "center",
     paddingVertical: 20,
-    borderRadius: 20
-  }
+    borderRadius: 20,
+  },
 });
 
 export default IntroScreen;

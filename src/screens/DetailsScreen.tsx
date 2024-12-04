@@ -1,33 +1,24 @@
-import { useRef } from "react";
-import {
-  View,
-  StyleSheet,
-  Dimensions,
-  StatusBar,
-  ScrollView,
-  Pressable,
-  Image
-} from "react-native";
-const { width: SCREEN_WIDTH } = Dimensions.get("window");
-const SCREEN_HEIGHT = 300;
+import { View, StyleSheet, Dimensions, StatusBar } from "react-native";
 import { ListItemType } from "../../types";
 import Animated, {
   interpolate,
   useAnimatedRef,
   useAnimatedStyle,
-  useScrollViewOffset
+  useScrollViewOffset,
 } from "react-native-reanimated";
 import Font from "../components/Font";
 
 type DetailsProps = {
-  navigation: any;
   route: { params: { item: ListItemType } };
 };
 
-const { width } = Dimensions.get("window");
+const { width: SCREEN_WIDTH } = Dimensions.get("window");
+const SCREEN_HEIGHT = 300;
 
-const DetailsScreen = ({ navigation, route }: DetailsProps) => {
-  const { item: { id, image, rating, tag } } = route.params;
+const DetailsScreen = ({ route }: DetailsProps) => {
+  const {
+    item: { image, tag },
+  } = route.params;
   const scrollRef = useAnimatedRef<Animated.ScrollView>();
   const scrollOffset = useScrollViewOffset(scrollRef);
 
@@ -38,17 +29,17 @@ const DetailsScreen = ({ navigation, route }: DetailsProps) => {
           translateY: interpolate(
             scrollOffset.value,
             [-SCREEN_HEIGHT, 0, SCREEN_HEIGHT],
-            [-SCREEN_HEIGHT / 2, 0, SCREEN_HEIGHT * 0.75]
-          )
+            [-SCREEN_HEIGHT / 1, 0, SCREEN_HEIGHT * 0.75]
+          ),
         },
         {
           scale: interpolate(
             scrollOffset.value,
             [-SCREEN_HEIGHT, 0, SCREEN_HEIGHT],
             [2, 1, 1]
-          )
-        }
-      ]
+          ),
+        },
+      ],
     };
   });
 
@@ -67,6 +58,14 @@ const DetailsScreen = ({ navigation, route }: DetailsProps) => {
             {tag}
           </Font>
         </View>
+
+        {[...Array(3)].map((_, index) => {
+          return (
+            <View key={index} style={styles.section}>
+              <Font>Section</Font>
+            </View>
+          );
+        })}
       </Animated.ScrollView>
     </View>
   );
@@ -76,13 +75,16 @@ const styles = StyleSheet.create({
   container: { backgroundColor: "#FFF", flex: 1 },
   image: {
     width: SCREEN_WIDTH,
-    height: SCREEN_HEIGHT
+    height: SCREEN_HEIGHT,
   },
   title: {
     alignItems: "center",
     marginTop: 20,
-    backgroundColor: "#FFF"
-  }
+  },
+  section: {
+    backgroundColor: "#FFF",
+    height: 300,
+  },
 });
 
 export default DetailsScreen;
